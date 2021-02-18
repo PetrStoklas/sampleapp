@@ -2,8 +2,8 @@ import React from "react";
 import { IKUICore, IKUIOidc, IKUIUserAPI } from "indykite-ui-sdk";
 
 const Login = () => {
-    const [email, setEmail] = React.useState("petr.stoklas@profiq.com");
-    const [password, setPassword] = React.useState("Password");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
     const [setupResponseData, setSetupResponseData] = React.useState(null)
 
     React.useEffect(() => {
