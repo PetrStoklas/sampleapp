@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { IKUIInit } from "indykite-ui-sdk";
+
+IKUIInit({
+  baseUri: process.env.REACT_APP_BASE_URI,
+  clientId: process.env.REACT_APP_APPLICATION_ID,
+  tenantId: process.env.REACT_APP_TENANT_ID,
+});
 
 ReactDOM.render(
   <React.StrictMode>
