@@ -2,8 +2,8 @@ import React from "react";
 import { IKUICore, IKUIOidc, IKUIUserAPI } from "indykite-ui-sdk";
 
 const Login = () => {
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
+    const [email, setEmail] = React.useState("petr.stoklas@profiq.com");
+    const [password, setPassword] = React.useState("Password");
     const [setupResponseData, setSetupResponseData] = React.useState(null)
 
     React.useEffect(() => {
@@ -16,6 +16,10 @@ const Login = () => {
 
         setup().catch(console.log)
     }, [])
+
+    const areThereOptsToRender = Boolean(setupResponseData &&
+      setupResponseData.opts &&
+      Array.isArray(setupResponseData.opts))
 
     const handleOnLogin = React.useCallback(() => {
         IKUIUserAPI.login(email, password, setupResponseData).then(console.log).catch(console.log);
@@ -51,10 +55,20 @@ const Login = () => {
           <br />
           <button onClick={() => (window.location.pathname = "/registration")}>Create new account</button>
 
+          {areThereOptsToRender && <><br/><br/><span>or continue with</span></>}
+          {areThereOptsToRender && setupResponseData.opts.filter(opt => opt.prv).map(opt =>
+            <React.Fragment key={opt['@id']}>
+              <br/>
+              <button
+                onClick={() => IKUIOidc.oidcSetup(opt['@id'])}
+              >{opt.prv}</button>
+            </React.Fragment>
+          )
+          }
           {/* BUILT IN UI*/}
           {/*{IKUICore.renderLogin({*/}
           {/*  renderElementSelector: ".login-container",*/}
-          {/*  onSuccessLogin: onSuccessCallback,*/}
+          {/*  onSuccessLogin: console.log,*/}
           {/*})}*/}
       </div>
     );
