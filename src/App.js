@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import Registration from "./components/Registration";
 import ForgottenPassword from "./components/ForgotPassword";
 import SetNewPassword from "./components/SetNewPassword";
-import Oidc from "./components/Oidc";
+import Oidc, { Callback } from "./components/Oidc";
 
 
 
@@ -41,10 +41,14 @@ function App() {
                 <Route path="/login">
                     <Login />
                 </Route>
+                <Route path="/callback">
+                    <Callback />
+                </Route>
             </Switch>
         </Router>
         <br />
         {token && <button onClick={IKUIUserAPI.logoutCurrentUser}>Logout</button>}
+        <h5>You can see responses in console</h5>
     </div>
   );
 }
